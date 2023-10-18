@@ -21,27 +21,33 @@ public class Robot {
         this.hardwareMap = hwm;
         this.telemetry = t;
 
-        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
+        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft   = hardwareMap.get(DcMotor.class, "backLeft");
         backRight  = hardwareMap.get(DcMotor.class, "backRight");
     }
 
-    public void drive(double pow) {
-        frontRight.setPower(pow);
-        telemetry.addData("Front Right Power", frontRight.getPower());
-        telemetry.update();
+    public void drive(double theta, double power, double turn) {
+        double sin = Math.sin(theta - Math.PI/4);
+        double cos = Math.cos(theta - Math.PI/4);
+        double max = Math.max(Math.abs(sin), Math.abs(cos));
 
-        frontLeft.setPower(pow);
-        telemetry.addData("Front Left Power", frontLeft.getPower());
-        telemetry.update();
+        double frontLeftPow = power * cos/max + turn;
+        double frontRightPow = power * sin/max - turn;
+        double backLeftPow = power * sin/max + turn;
+        double backRightPow = power * cos/max - turn;
 
-        backRight.setPower(pow);
-        telemetry.addData("Back Right Power", backRight.getPower());
-        telemetry.update();
+        if ((power + Math.abs(turn)) > 1) {
+            frontLeftPow /= power + turn;
+            frontRightPow /= power + turn;
+            backLeftPow /= power + turn;
+            backRightPow /= power + turn;
+        }
 
-        backLeft.setPower(pow);
-        telemetry.addData("Back Left Power", backRight.getPower());
+        frontLeft.setPower(frontLeftPow);
+        frontRight.setPower(frontRightPow);
+        backLeft.setPower(backLeftPow);
+        backRight.setPower(backRightPow);
     }
 
 
