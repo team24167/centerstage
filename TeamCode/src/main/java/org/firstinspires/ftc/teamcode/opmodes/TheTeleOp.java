@@ -8,27 +8,31 @@ import org.firstinspires.ftc.teamcode.lib.Robot;
 
 @TeleOp(name = "tele is the opp")
 public class TheTeleOp extends LinearOpMode {
-
-    private Robot robot = new Robot(hardwareMap, telemetry);
+    private Robot robot;
     @Override
     public void runOpMode() {
+        robot = new Robot(hardwareMap, telemetry);
 
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
+        //telemetry.addData("Status", "Initialized");
+        //telemetry.update();
         waitForStart();
 
-        while (opModeIsActive()) {
-            telemetry.addData("Status", "Running!!!!");
-            telemetry.update();
-            double x    =  gamepad1.left_stick_x;
-            double y    = -gamepad1.left_stick_y;
-            double turn =  gamepad1.right_stick_x;
+        while (opModeIsActive()){
+            //telemetry.addData("Status", "Running!!!!");
+            double x    =  gamepad2.left_stick_x;
+            double y    = -gamepad2.left_stick_y;
+            double turn =  gamepad2.right_stick_x;
 
             double theta = Math.atan2(y, x);
             double power = Math.hypot(x, y);
 
-
             robot.drive(theta, power, turn);
+
+            if(gamepad2.circle) robot.runIndividualMotor(3);
+            if(gamepad2.square) robot.runIndividualMotor(0);
+            if(gamepad2.cross) robot.runIndividualMotor(2);
+            if(gamepad2.triangle) robot.runIndividualMotor(1);
+
 
         }
 
