@@ -28,13 +28,13 @@ public class TheTeleOp extends LinearOpMode {
 
             robot.drive(theta, power, turn);
 
+            /*
             if(gamepad2.circle) robot.runIndividualMotor(3);
             if(gamepad2.square) robot.runIndividualMotor(0);
             if(gamepad2.cross) robot.runIndividualMotor(2);
             if(gamepad2.triangle) robot.runIndividualMotor(1);
-
+            */
 
         }
-
     }
 }
