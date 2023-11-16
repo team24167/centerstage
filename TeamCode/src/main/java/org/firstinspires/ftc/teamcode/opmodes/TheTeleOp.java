@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 
 import org.firstinspires.ftc.teamcode.lib.Robot;
@@ -18,10 +19,18 @@ public class TheTeleOp extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()){
-            //telemetry.addData("Status", "Running!!!!");
-            double x    =  gamepad2.left_stick_x;
-            double y    = -gamepad2.left_stick_y;
-            double turn =  gamepad2.right_stick_x;
+            //telemetry.addData("Status", "Running!!!!") ;
+
+            Gamepad activeGamepad = gamepad1;
+
+            if(gamepad2.right_bumper)
+                activeGamepad = gamepad2;
+            if(gamepad1.right_bumper)
+                activeGamepad = gamepad1;
+
+            double x    =  activeGamepad.left_stick_x;
+            double y    = -activeGamepad.left_stick_y;
+            double turn =  activeGamepad.right_stick_x;
 
             double theta = Math.atan2(y, x);
             double power = Math.hypot(x, y);
