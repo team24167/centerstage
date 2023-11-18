@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.lib;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -64,26 +66,64 @@ public class Robot {
         backRight.setPower(backRightPow);
     }
 
-    public void runIndividualMotor(int num){
-        switch(num){
-            case 0:
-                frontLeft.setPower(1);
-                break;
-            case 1:
-                frontRight.setPower(1);
-                break;
-            case 2:
-                backLeft.setPower(1);
-                break;
-            case 3:
-                backRight.setPower(1);
-                break;
-        }
-        telemetry.addData("Front Left Power", frontLeft.getPower());
-        telemetry.addData("Front Right Power", frontRight.getPower());
-        telemetry.addData("Back Left Power", backLeft.getPower());
-        telemetry.addData("Back Right Power", backRight.getPower());
-        telemetry.update();
+    public void turnLeftForTime(double power, long ms) throws InterruptedException {
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
+
+        frontLeft.setPower(-power);
+        frontRight.setPower(power);
+        backLeft.setPower(-power);
+        backRight.setPower(power);
+        Thread.sleep(ms);
+
+        frontRight.setDirection(DcMotor.Direction.FORWARD);
+        backRight.setDirection(DcMotor.Direction.FORWARD);
+
     }
+
+    public void driveForwardForTime(double power, long time) throws InterruptedException {
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
+
+        frontLeft.setPower(power);
+        frontRight.setPower(power);
+        backLeft.setPower(power);
+        backRight.setPower(power);
+        Thread.sleep(time);
+
+        frontRight.setDirection(DcMotor.Direction.FORWARD);
+        backRight.setDirection(DcMotor.Direction.FORWARD);
+
+    }
+
+    public void stopRobot() {
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
+        backLeft.setPower(0);
+        backRight.setPower(0);
+    }
+
+
+//    public void runIndividualMotor(int num){
+//        switch(num){
+//            case 0:
+//                frontLeft.setPower(1);
+//                break;
+//            case 1:
+//                frontRight.setPower(1);
+//                break;
+//            case 2:
+//                backLeft.setPower(1);
+//                break;
+//            case 3:
+//                backRight.setPower(1);
+//                break;
+//        }
+//        telemetry.addData("Front Left Power", frontLeft.getPower());
+//        telemetry.addData("Front Right Power", frontRight.getPower());
+//        telemetry.addData("Back Left Power", backLeft.getPower());
+//        telemetry.addData("Back Right Power", backRight.getPower());
+//        telemetry.update();
+//    }
 
 }
