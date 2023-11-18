@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name = "autoleft", group = "Autonomous")
-public class autoleft extends LinearOpMode {
+public class AutoLeft extends LinearOpMode {
 
     private DcMotor frontLeft;
     private DcMotor frontRight;

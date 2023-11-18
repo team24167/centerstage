@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "autoright", group = "Autonomous")
-public class longautoright extends LinearOpMode {
+@Autonomous(name = "longautoright", group = "Autonomous")
+public class LongAutoRight extends LinearOpMode {
 
     private DcMotor frontLeft;
     private DcMotor frontRight;

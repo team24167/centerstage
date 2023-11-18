@@ -2,12 +2,13 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 
 import org.firstinspires.ftc.teamcode.lib.Robot;
 
-@TeleOp(name = "tele is the opp")
+@TeleOp(name = "MAIN TeleOp")
 public class TheTeleOp extends LinearOpMode {
     private Robot robot;
     @Override
@@ -18,31 +19,48 @@ public class TheTeleOp extends LinearOpMode {
         //telemetry.update();
         waitForStart();
 
+        Gamepad drivingGamepad = gamepad1;
+        Gamepad functionGamepad = gamepad2;
+
         while (opModeIsActive()){
-            //telemetry.addData("Status", "Running!!!!") ;
 
-            Gamepad activeGamepad = gamepad1;
+            telemetry.addData("Motor Position:", "IDK!!");
 
-            if(gamepad2.right_bumper)
-                activeGamepad = gamepad2;
-            if(gamepad1.right_bumper)
-                activeGamepad = gamepad1;
+            if(gamepad2.right_bumper) {
+                drivingGamepad = gamepad2;
+                functionGamepad = gamepad1;
+                telemetry.addData("Driving gamepad: ", "Gamepad 2");
+                telemetry.addData("Slide gamepad: ", "Gamepad 1");
+            }
+            if(gamepad1.right_bumper) {
+                drivingGamepad = gamepad1;
+                functionGamepad = gamepad2;
+                telemetry.addData("Driving gamepad: ", "Gamepad 1");
+                telemetry.addData("Slide gamepad: ", "Gamepad 2");
 
-            double x    =  activeGamepad.left_stick_x;
-            double y    = -activeGamepad.left_stick_y;
-            double turn =  activeGamepad.right_stick_x;
+            }
+
+            // DRIVING
+            double x    =  drivingGamepad.left_stick_x;
+            double y    = -drivingGamepad.left_stick_y;
+            double turn =  drivingGamepad.right_stick_x;
 
             double theta = Math.atan2(y, x);
             double power = Math.hypot(x, y);
 
             robot.drive(theta, power, turn);
 
-            /*
-            if(gamepad2.circle) robot.runIndividualMotor(3);
-            if(gamepad2.square) robot.runIndividualMotor(0);
-            if(gamepad2.cross) robot.runIndividualMotor(2);
-            if(gamepad2.triangle) robot.runIndividualMotor(1);
-            */
+            DcMotor slideMotor = hardwareMap.get(DcMotor.class, "slide");
+            slideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            slideMotor.setPower(-functionGamepad.left_stick_y * .7);
+            telemetry.addData("Motor Position", slideMotor.getCurrentPosition());
+
+            telemetry.update();
+
+
+            // OTHER FUNCTIONS
+
+
 
         }
     }
