@@ -39,9 +39,9 @@ public class TheTeleOp extends LinearOpMode {
 //            }
 
             // DRIVING
-            double x    =  gamepad1.left_stick_x;
-            double y    = -gamepad1.left_stick_y;
-            double turn =  gamepad1.right_stick_x;
+            double x    = -gamepad1.right_stick_y;
+            double y    = gamepad1.right_stick_x;
+            double turn =  -gamepad1.left_stick_x;
 
             double theta = Math.atan2(y, x);
             double power = Math.hypot(x, y);
