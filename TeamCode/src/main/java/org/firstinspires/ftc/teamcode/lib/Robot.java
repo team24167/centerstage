@@ -62,8 +62,8 @@ public class Robot {
 
         frontLeft.setPower(frontLeftPow);
         frontRight.setPower(frontRightPow);
-        backLeft.setPower(backLeftPow);
-        backRight.setPower(backRightPow);
+        backLeft.setPower(backLeftPow * 0.8f);
+        backRight.setPower(backRightPow * 0.8f);
     }
 
     public void turnLeftForTime(double power, long ms) throws InterruptedException {
@@ -72,9 +72,41 @@ public class Robot {
 
         frontLeft.setPower(-power);
         frontRight.setPower(power);
-        backLeft.setPower(-power);
-        backRight.setPower(power);
+        backLeft.setPower(-power * 0.8f);
+        backRight.setPower(power * 0.8f);
         Thread.sleep(ms);
+
+        frontRight.setDirection(DcMotor.Direction.FORWARD);
+        backRight.setDirection(DcMotor.Direction.FORWARD);
+
+    }
+
+    public void turnRightForTime(double power, long ms) throws InterruptedException {
+
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
+
+        frontLeft.setPower(power);
+        frontRight.setPower(-power);
+        backLeft.setPower(power);
+        backRight.setPower(-power);
+
+        Thread.sleep(ms);
+        frontRight.setDirection(DcMotor.Direction.FORWARD);
+        backRight.setDirection(DcMotor.Direction.FORWARD);
+
+    }
+
+    public void driveBackwardForTime(double power, long time) throws InterruptedException {
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
+
+        frontRight.setPower(-power);
+        frontLeft.setPower(-power);
+        backLeft.setPower(-power);
+        backRight.setPower(-power);
+
+        Thread.sleep(time);
 
         frontRight.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.FORWARD);
@@ -87,12 +119,13 @@ public class Robot {
 
         frontLeft.setPower(power);
         frontRight.setPower(power);
-        backLeft.setPower(power);
-        backRight.setPower(power);
+        backLeft.setPower(power * 0.8f);
+        backRight.setPower(power * 0.8f);
         Thread.sleep(time);
 
         frontRight.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.FORWARD);
+
 
     }
 

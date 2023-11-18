@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.lib.Robot;
 
-@Autonomous(name = "autoleft", group = "Autonomous")
+@Autonomous(name = "Short Left Auto", group = "Autonomous")
 public class AutoLeft extends LinearOpMode {
 
 //    private DcMotor frontLeft;
@@ -30,15 +30,15 @@ public class AutoLeft extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        robot.turnLeftForTime(0.5, 10000); // Adjust speed and time as needed
+        robot.driveBackwardForTime(0.5, 300);
+        robot.turnLeftForTime(0.5, 900); // Adjust speed and time as needed
 
         // Move forward for 5 seconds
-        robot.driveForwardForTime(0.5, 5000); // Adjust speed and time as needed
+        robot.driveForwardForTime(0.5, 1150); // Adjust speed and time as needed
 
 
 
         // Stop the robot
-        robot.stopRobot();
     }
 
 //    private void driveForwardForTime(double power, long time) {
