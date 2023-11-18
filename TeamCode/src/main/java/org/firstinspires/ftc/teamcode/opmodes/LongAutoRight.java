@@ -33,16 +33,16 @@ public class LongAutoRight extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        robot.driveBackwardForTime(0.5, 300);
-        robot.turnRightForTime(0.5, 850); // Adjust speed and time as needed
+//        robot.driveBackwardForTime(0.5, 300);
+        robot.turnRightForTime(0.5, 1200);// Adjust speed and time as needed
         // Move forward for 5 seconds
-        robot.driveForwardForTime(0.5, 3000); // Adjust speed and time as needed
+        robot.driveForwardForTime(0.5, 5200); // Adjust speed and time as needed
 
         // Turn left for 5 seconds
 
 
         // Stop the robot
-        stopRobot();
+        //stopRobot();
     }
 
 //    private void driveBack(double power, long time) {

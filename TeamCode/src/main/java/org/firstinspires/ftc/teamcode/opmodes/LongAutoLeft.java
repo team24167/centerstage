@@ -37,10 +37,10 @@ public class LongAutoLeft extends LinearOpMode {
         robot = new Robot(this.hardwareMap, this.telemetry);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        robot.turnLeftForTime(0.5, 1000); // Adjust speed and time as needed
+        robot.turnLeftForTime(0.5, 1200); // Adjust speed and time as needed
 
         // Move forward for 5 seconds
-        robot.driveForwardForTime(0.5, 3000); // Adjust speed and time as needed
+        robot.driveForwardForTime(0.5, 5200); // Adjust speed and time as needed
 
         // Turn left for 5 seconds
 

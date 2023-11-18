@@ -33,10 +33,9 @@ public class AutoRight extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        robot.driveBackwardForTime(0.5, 350);
-        robot.turnRightForTime(0.5, 900); // Adjust speed and time as needed
+        robot.turnRightForTime(0.5, 1200); // Adjust speed and time as needed
         // Move forward for 5 seconds
-        robot.driveForwardForTime(0.5, 1150); // Adjust speed and time as needed
+        robot.driveForwardForTime(0.5, 2550); // Adjust speed and time as needed
 
         // Turn left for 5 seconds
 
