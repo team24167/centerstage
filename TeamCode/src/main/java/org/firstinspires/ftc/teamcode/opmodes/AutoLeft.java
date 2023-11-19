@@ -2,65 +2,27 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.lib.Robot;
+import org.firstinspires.ftc.teamcode.lib.MecanumDrivetrain;
 
 @Autonomous(name = "Short Left Auto", group = "Autonomous")
 public class AutoLeft extends LinearOpMode {
 
-//    private DcMotor frontLeft;
-//    private DcMotor frontRight;
-//    private DcMotor backLeft;
-//    private DcMotor backRight;
-//
-//    private ElapsedTime runtime = new ElapsedTime();
-    private Robot robot;
+    private MecanumDrivetrain drivetrain;
 
     @Override
     public void runOpMode() throws InterruptedException {
-//        frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
-//        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-//        backLeft   = hardwareMap.get(DcMotor.class, "backLeft");
-//        backRight  = hardwareMap.get(DcMotor.class, "backRight");
-        // Init robot
-        robot = new Robot(this.hardwareMap, this.telemetry);
-        // Initialize motors
-
-        // Wait for the game to start (driver presses PLAY)
+        drivetrain = new MecanumDrivetrain(this.hardwareMap, this.telemetry);
         waitForStart();
 
-        robot.turnLeftForTime(0.5, 1200); // Adjust speed and time as needed
+        drivetrain.turnLeftForTime(0.5, 1200); // Adjust speed and time as needed
 
         // Move forward for 5 seconds
-        robot.driveForwardForTime(0.5, 2550); // Adjust speed and time as needed
+        drivetrain.driveForwardForTime(0.5, 2550); // Adjust speed and time as needed
 
 
 
         // Stop the robot
     }
 
-//    private void driveForwardForTime(double power, long time) {
-//        frontLeft.setPower(power);
-//        frontRight.setPower(power);
-//        backLeft.setPower(power);
-//        backRight.setPower(power);
-//        sleep(time);
-//    }
-//
-//    private void turnLeftForTime(double power, long time) {
-//        frontLeft.setPower(-power);
-//        frontRight.setPower(power);
-//        backLeft.setPower(-power);
-//        backRight.setPower(power);
-//        sleep(time);
-//    }
-//
-//    private void stopRobot() {
-//        frontLeft.setPower(0);
-//        frontRight.setPower(0);
-//        backLeft.setPower(0);
-//        backRight.setPower(0);
-//    }
 }

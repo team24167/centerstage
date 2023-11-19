@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.lib;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class Robot {
+public class MecanumDrivetrain {
     // Stuff from the op mode
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
@@ -19,7 +17,7 @@ public class Robot {
     private DcMotor backRight;
 
 
-    public Robot(HardwareMap hwm, Telemetry t) {
+    public MecanumDrivetrain(HardwareMap hwm, Telemetry t) {
         this.hardwareMap = hwm;
         this.telemetry = t;
 
@@ -29,36 +27,24 @@ public class Robot {
         backRight  = hardwareMap.get(DcMotor.class, "backRight");
     }
 
-    public void drive(double theta, double power, double turn) {
-        double sin = Math.sin(theta - Math.PI/4);
-        double cos = Math.cos(theta - Math.PI/4);
-        double max = Math.max(Math.abs(sin), Math.abs(cos));
+    public void drive(double power, double strafe, double turn) {
 
-        double frontLeftPow = power * cos/max + turn;
-        double frontRightPow = power * sin/max - turn;
-        double backLeftPow = power * sin/max + turn;
-        double backRightPow = power * cos/max - turn;
 
-        if ((power + Math.abs(turn)) > 1) {
-            frontLeftPow /= power + turn;
-            frontRightPow /= power + turn;
-            backLeftPow /= power + turn;
-            backRightPow /= power + turn;
-        }
+        telemetry.addData("Theta: ", power);
+        telemetry.addData("Turn: ", turn);
+        telemetry.addData("Strafe: ", strafe);
 
-        //frontLeftPow *= -1;
-        //backLeftPow *= -1;
+        double denominator = Math.max(Math.abs(power) + Math.abs(strafe) + Math.abs(turn), 1);
 
-        telemetry.addData("Theta: ", theta);
-        telemetry.addData("power: ", power);
-        telemetry.addData("turn: ", turn);
+        double frontLeftPow = (power + strafe + turn) / denominator;
+        double backLeftPow = (power - strafe + turn) / denominator;
+        double frontRightPow = (power - strafe - turn) / denominator;
+        double backRightPow = (power + strafe - turn) / denominator;
 
         telemetry.addData("Front Left Power", frontLeftPow);
         telemetry.addData("Front Right Power", frontRightPow);
         telemetry.addData("Back Left Power", backLeftPow);
         telemetry.addData("Back Right Power", backRightPow);
-        telemetry.update();
-
 
         frontLeft.setPower(frontLeftPow);
         frontRight.setPower(frontRightPow);
