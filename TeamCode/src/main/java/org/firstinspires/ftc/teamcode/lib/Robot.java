@@ -46,8 +46,8 @@ public class Robot {
             backRightPow /= power + turn;
         }
 
-        frontLeftPow *= -1;
-        backLeftPow *= -1;
+//        frontLeftPow *= -1;
+//        backLeftPow *= -1;
 
         telemetry.addData("Theta: ", theta);
         telemetry.addData("power: ", power);
