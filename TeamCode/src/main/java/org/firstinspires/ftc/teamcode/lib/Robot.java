@@ -46,8 +46,8 @@ public class Robot {
             backRightPow /= power + turn;
         }
 
-//        frontLeftPow *= -1;
-//        backLeftPow *= -1;
+        //frontLeftPow *= -1;
+        //backLeftPow *= -1;
 
         telemetry.addData("Theta: ", theta);
         telemetry.addData("power: ", power);
@@ -62,8 +62,8 @@ public class Robot {
 
         frontLeft.setPower(frontLeftPow);
         frontRight.setPower(frontRightPow);
-        backLeft.setPower(backLeftPow * 0.8f);
-        backRight.setPower(backRightPow * 0.8f);
+        backLeft.setPower(backLeftPow);
+        backRight.setPower(backRightPow);
     }
 
     public void turnLeftForTime(double power, long ms) throws InterruptedException {
@@ -137,26 +137,26 @@ public class Robot {
     }
 
 
-//    public void runIndividualMotor(int num){
-//        switch(num){
-//            case 0:
-//                frontLeft.setPower(1);
-//                break;
-//            case 1:
-//                frontRight.setPower(1);
-//                break;
-//            case 2:
-//                backLeft.setPower(1);
-//                break;
-//            case 3:
-//                backRight.setPower(1);
-//                break;
-//        }
-//        telemetry.addData("Front Left Power", frontLeft.getPower());
-//        telemetry.addData("Front Right Power", frontRight.getPower());
-//        telemetry.addData("Back Left Power", backLeft.getPower());
-//        telemetry.addData("Back Right Power", backRight.getPower());
-//        telemetry.update();
-//    }
+    public void runIndividualMotor(int num){
+        switch(num){
+            case 0:
+                frontLeft.setPower(1);
+                break;
+            case 1:
+                frontRight.setPower(1);
+                break;
+            case 2:
+                backLeft.setPower(1);
+                break;
+            case 3:
+                backRight.setPower(1);
+                break;
+        }
+        telemetry.addData("Front Left Power", frontLeft.getPower());
+        telemetry.addData("Front Right Power", frontRight.getPower());
+        telemetry.addData("Back Left Power", backLeft.getPower());
+        telemetry.addData("Back Right Power", backRight.getPower());
+        telemetry.update();
+    }
 
 }
