@@ -6,6 +6,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class MecanumDrivetrain {
+    private final double frontRightScaleFactor = 1.00;
+    private final double frontLeftScaleFactor = 1.00;
+    private final double backLeftScaleFactor = 0.9;
+    private final double backRightScaleFactor = 0.9;
+
     // Stuff from the op mode
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
@@ -15,6 +20,7 @@ public class MecanumDrivetrain {
     private DcMotor frontLeft;
     private DcMotor backLeft;
     private DcMotor backRight;
+
 
 
     public MecanumDrivetrain(HardwareMap hwm, Telemetry t) {
@@ -30,7 +36,7 @@ public class MecanumDrivetrain {
     public void drive(double power, double strafe, double turn) {
 
 
-        telemetry.addData("Theta: ", power);
+        telemetry.addData("Power: ", power);
         telemetry.addData("Turn: ", turn);
         telemetry.addData("Strafe: ", strafe);
 
@@ -41,15 +47,23 @@ public class MecanumDrivetrain {
         double frontRightPow = (power - strafe - turn) / denominator;
         double backRightPow = (power + strafe - turn) / denominator;
 
-        telemetry.addData("Front Left Power", frontLeftPow);
-        telemetry.addData("Front Right Power", frontRightPow);
-        telemetry.addData("Back Left Power", backLeftPow);
-        telemetry.addData("Back Right Power", backRightPow);
+        telemetry.addData("CALC Front Left Power", frontLeftPow);
+        telemetry.addData("CALC Front Right Power", frontRightPow);
+        telemetry.addData("CALC Back Left Power", backLeftPow);
+        telemetry.addData("CALC Back Right Power", backRightPow);
 
-        frontLeft.setPower(frontLeftPow);
-        frontRight.setPower(frontRightPow);
-        backLeft.setPower(backLeftPow);
-        backRight.setPower(backRightPow);
+
+
+        frontLeft.setPower(frontLeftPow * frontLeftScaleFactor);
+        frontRight.setPower(frontRightPow * frontRightScaleFactor * -1);
+        backLeft.setPower(backLeftPow * backLeftScaleFactor);
+        backRight.setPower(backRightPow * backRightScaleFactor * -1);
+
+        telemetry.addData("TRUE Front Left Power", frontLeft.getPower());
+        telemetry.addData("TRUE Front Right Power", frontRight.getPower());
+        telemetry.addData("TRUE Back Left Power", backLeft.getPower());
+        telemetry.addData("TRUE Back Right Power", backRight.getPower());
+
     }
 
     public void turnLeftForTime(double power, long ms) throws InterruptedException {

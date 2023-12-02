@@ -15,6 +15,13 @@ public class LongAutoLeft extends LinearOpMode {
 
         drivetrain = new MecanumDrivetrain(this.hardwareMap, this.telemetry);
         waitForStart();
+
+        // Tuning instructions:
+        // Change the ms (second) value in drivetrain.turnLeftForTime/driveForwardForTime to
+        // the correct value
+        // To add a delay, remove the two slashes before the line "Thread.sleep(a number here)",
+        // and change the 1000 to whatever time it needs to sleep for
+
         drivetrain.turnLeftForTime(0.5, 1200);
 
         // Move forward for 5 seconds
