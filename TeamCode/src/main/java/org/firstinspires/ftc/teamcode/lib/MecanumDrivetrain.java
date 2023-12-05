@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.lib;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -31,6 +32,9 @@ public class MecanumDrivetrain {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft   = hardwareMap.get(DcMotor.class, "backLeft");
         backRight  = hardwareMap.get(DcMotor.class, "backRight");
+
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
     }
 
     public void drive(double power, double strafe, double turn) {
@@ -51,13 +55,11 @@ public class MecanumDrivetrain {
         telemetry.addData("CALC Front Right Power", frontRightPow);
         telemetry.addData("CALC Back Left Power", backLeftPow);
         telemetry.addData("CALC Back Right Power", backRightPow);
-
-
-
+        
         frontLeft.setPower(frontLeftPow * frontLeftScaleFactor);
-        frontRight.setPower(frontRightPow * frontRightScaleFactor * -1);
+        frontRight.setPower(frontRightPow * frontRightScaleFactor);
         backLeft.setPower(backLeftPow * backLeftScaleFactor);
-        backRight.setPower(backRightPow * backRightScaleFactor * -1);
+        backRight.setPower(backRightPow * backRightScaleFactor);
 
         telemetry.addData("TRUE Front Left Power", frontLeft.getPower());
         telemetry.addData("TRUE Front Right Power", frontRight.getPower());
@@ -67,24 +69,18 @@ public class MecanumDrivetrain {
     }
 
     public void turnLeftForTime(double power, long ms) throws InterruptedException {
-        frontRight.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.REVERSE);
 
         frontLeft.setPower(-power);
         frontRight.setPower(power);
-        backLeft.setPower(-power * 0.8f);
-        backRight.setPower(power * 0.8f);
+        backLeft.setPower(-power);
+        backRight.setPower(power);
         Thread.sleep(ms);
 
-        frontRight.setDirection(DcMotor.Direction.FORWARD);
-        backRight.setDirection(DcMotor.Direction.FORWARD);
 
     }
 
     public void turnRightForTime(double power, long ms) throws InterruptedException {
 
-        frontRight.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.REVERSE);
 
         frontLeft.setPower(power);
         frontRight.setPower(-power);
@@ -92,14 +88,10 @@ public class MecanumDrivetrain {
         backRight.setPower(-power);
 
         Thread.sleep(ms);
-        frontRight.setDirection(DcMotor.Direction.FORWARD);
-        backRight.setDirection(DcMotor.Direction.FORWARD);
 
     }
 
     public void driveBackwardForTime(double power, long time) throws InterruptedException {
-        frontRight.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.REVERSE);
 
         frontRight.setPower(-power);
         frontLeft.setPower(-power);
@@ -108,23 +100,17 @@ public class MecanumDrivetrain {
 
         Thread.sleep(time);
 
-        frontRight.setDirection(DcMotor.Direction.FORWARD);
-        backRight.setDirection(DcMotor.Direction.FORWARD);
 
     }
 
     public void driveForwardForTime(double power, long time) throws InterruptedException {
-        frontRight.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.REVERSE);
 
         frontLeft.setPower(power);
         frontRight.setPower(power);
-        backLeft.setPower(power * 0.8f);
-        backRight.setPower(power * 0.8f);
+        backLeft.setPower(power);
+        backRight.setPower(power);
         Thread.sleep(time);
 
-        frontRight.setDirection(DcMotor.Direction.FORWARD);
-        backRight.setDirection(DcMotor.Direction.FORWARD);
 
 
     }
